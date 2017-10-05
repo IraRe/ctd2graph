@@ -14,8 +14,11 @@ MERGE (p:InteractionType {code: t.parentCode})
 MERGE (t)-[:HAS_PARENT]->(p)
 REMOVE t.parentCode
 
-MATCH (i:Interaction) WHERE exists(i.actions)
-UNWIND i.actions as action
-MERGE (t:InteractionType {typeName : last(split(action, '^'))})
-MERGE (i)-[r:EFFECTS]-(t)
-    SET r.type = head(split(action, '^'))
+CALL apoc.periodic.commit("MATCH (i:Interaction) WHERE exists(i.actions)
+    with i limit {limit} UNWIND i.actions as action
+    MERGE (t:InteractionType {typeName : last(split(action, '^'))})
+    MERGE (i)-[r:EFFECTS]->(t) SET r.type = head(split(action, '^'))
+    REMOVE i.actions RETURN count(*)",
+{limit:1000})
+
+CALL apoc.periodic.commit('MATCH ()-[r:EFFECTS]-() WITH r limit {limit} CALL apoc.refactor.setType(r, toUpper(r.type)) yield output return count(*)',{limit:1000})
