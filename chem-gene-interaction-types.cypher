@@ -3,7 +3,7 @@ CREATE INDEX ON :InteractionType(code);
 
 USING PERIODIC COMMIT 500
 LOAD CSV WITH HEADERS
-    FROM "file:///home/irare/projects/odsc/gene-data/CTD_chem_gene_ixn_types_with_header.csv" AS line
+    FROM "file:///../CTD_chem_gene_ixn_types_with_header.csv" AS line
     MERGE (t:InteractionType {typeName : line.TypeName})
         SET t.code = line.Code
         SET t.description = line.Description

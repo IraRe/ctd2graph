@@ -1,5 +1,5 @@
 USING PERIODIC COMMIT 500
-LOAD CSV WITH HEADERS FROM "file:///home/irare/projects/odsc/gene-data/CTD_genes_pathways.csv" AS line
+LOAD CSV WITH HEADERS FROM "file:///../CTD_genes_pathways.csv" AS line
 MATCH (p:Pathway {pathwayID : line.PathwayID})
 MATCH (g:Gene {geneID : line.GeneID})
-    MERGE (p)-[:ASSOCIATED_WITH]->(g)
+    MERGE (p)-[:INVOLVES]->(g)

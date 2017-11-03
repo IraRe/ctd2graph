@@ -1,7 +1,7 @@
 CREATE INDEX ON :Disease(diseaseID)
 
 USING PERIODIC COMMIT 500
-LOAD CSV WITH HEADERS FROM "file:///home/irare/projects/odsc/gene-data/CTD_diseases_with_header.csv" AS line
+LOAD CSV WITH HEADERS FROM "file:///../CTD_diseases_with_header.csv" AS line
 MERGE (d:Disease {diseaseID: line.DiseaseID})
     SET d.diseaseName = line.DiseaseName
     SET d.definition = line.Definition

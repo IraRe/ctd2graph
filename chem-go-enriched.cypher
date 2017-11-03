@@ -3,7 +3,7 @@ CREATE INDEX ON :Term(termID)
 
 USING PERIODIC COMMIT 500
 LOAD CSV WITH HEADERS
-    FROM "file:///home/irare/projects/odsc/gene-data/CTD_chem_go_enriched.csv" AS line
+    FROM "file:///../CTD_chem_go_enriched.csv" AS line
     MATCH (c:Chemical {chemicalID : line.ChemicalID})
     MERGE (o:Ontology {name : line.Ontology})
     MERGE (t:Term {termID : line.GOTermID})
@@ -16,9 +16,9 @@ LOAD CSV WITH HEADERS
 
 CALL apoc.periodic.iterate(
     "CALL apoc.load.csv(
-        'ile:///home/irare/projects/odsc/gene-data/CTD_chem_go_enriched.csv',
+        'file:///home/irare/projects/odsc/gene-data/CTD_chem_go_enriched.csv',
         {})
-        YIELD lineNo, map RETURN lineNo, map",
+        YIELD lineNo, map AS line RETURN lineNo, line",
     "MATCH (c:Chemical {chemicalID : line.ChemicalID})
     MERGE (o:Ontology {name : line.Ontology})
     MERGE (t:Term {termID : line.GOTermID})

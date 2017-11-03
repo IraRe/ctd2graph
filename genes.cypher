@@ -1,7 +1,7 @@
 CREATE INDEX ON :Gene(geneID)
 
 USING PERIODIC COMMIT 500
-LOAD CSV WITH HEADERS FROM "file:///home/irare/projects/odsc/gene-data/CTD_genes_with_header.csv" AS line
+LOAD CSV WITH HEADERS FROM "file:///../CTD_genes_with_header.csv" AS line
 MERGE (g:Gene {geneID: line.GeneID})
     SET g.geneName = line.GeneName
     SET g.geneSymbol = line.GeneSymbol

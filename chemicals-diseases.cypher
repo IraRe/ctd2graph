@@ -5,7 +5,7 @@ USING PERIODIC COMMIT 500
 
 CALL apoc.periodic.iterate(
     "CALL apoc.load.csv(
-        'file:///home/irare/projects/odsc/gene-data/CTD_chemicals_diseases_with_header.csv',
+        'file:///../CTD_chemicals_diseases_with_header.csv',
         {})
         YIELD lineNo, map RETURN lineNo, map",
     "CREATE (i:Inference {lineNo : lineNo})

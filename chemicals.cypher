@@ -1,7 +1,7 @@
 CREATE INDEX ON :Chemical(chemicalID)
 
 USING PERIODIC COMMIT 500
-LOAD CSV WITH HEADERS FROM "file:///home/irare/projects/odsc/gene-data/CTD_chemicals_with_header.csv" AS line
+LOAD CSV WITH HEADERS FROM "file:///../CTD_chemicals_with_header.csv" AS line
 MERGE (c:Chemical {chemicalID: line.ChemicalID})
     SET c.chemicalName = line.ChemicalName
     SET c.casRN = line.CasRN
